@@ -5,6 +5,8 @@ package com.oncontentstop.test;
  */
 public class TestMain {
 	public static void main(String[] args) {
-
+		TestWindow testWindow = new TestWindow();
+		testWindow.setVisible(true);
+		new Thread(testWindow).start();
 	}
 }

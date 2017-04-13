@@ -22,7 +22,7 @@ public class TextEntryElement extends Element {
 	private float fontSize;
 	private boolean visible;
 
-	public TextEntryElement(int len, int ht, int cx, int cy, Graphics graphics) {//TODO implement Align with initialization of Elements
+	public TextEntryElement(int cx, int cy, int len, int ht, Graphics graphics) {//TODO implement Align with initialization of Elements
 		super(graphics);
 		text = "";
 		cursorPos = 0;

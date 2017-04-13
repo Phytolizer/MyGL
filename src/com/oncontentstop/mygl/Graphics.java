@@ -1,6 +1,7 @@
 package com.oncontentstop.mygl;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowListener;
@@ -40,6 +41,7 @@ public class Graphics implements Runnable, WindowListener, WindowFocusListener {
 		frame.addWindowFocusListener(this);
 		visible = false;
 		sleepInterval = 10;
+		imgBuffer = frame.createImage(width, height);
 	}
 
 	@Override
@@ -173,5 +175,9 @@ public class Graphics implements Runnable, WindowListener, WindowFocusListener {
 
 	public void setFrameSleepInterval(short sleepInterval) {
 		this.sleepInterval = sleepInterval;
+	}
+
+	public void handleKey(KeyEvent e) {
+
 	}
 }
