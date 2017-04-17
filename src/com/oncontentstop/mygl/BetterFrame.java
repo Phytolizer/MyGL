@@ -14,7 +14,7 @@ public class BetterFrame extends Frame implements MouseListener, MouseMotionList
 	private String name;
 	private KeyInterface keyHandler;
 	private boolean hasClicked;
-
+	
 	/**
 	 * Creates a new BetterFrame.
 	 *
@@ -30,67 +30,67 @@ public class BetterFrame extends Frame implements MouseListener, MouseMotionList
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
 	}
-
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
-
+	
 	}
-
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		keyHandler.pressKey(e);
 	}
-
+	
 	@Override
 	public void keyReleased(KeyEvent e) {
 		keyHandler.releaseKey(e);
 	}
-
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-
+	
 	}
-
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		clicking = true;
 		mouseButton = e.getButton();
 	}
-
+	
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		clicking = false;
 		hasClicked = true;
 		mouseButton = - 1;
 	}
-
+	
 	@Override
 	public void mouseEntered(MouseEvent e) {
-
+	
 	}
-
+	
 	@Override
 	public void mouseExited(MouseEvent e) {
-
+	
 	}
-
+	
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		mouseX = e.getX();
 		mouseY = e.getY();
 	}
-
+	
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		mouseX = e.getX();
 		mouseY = e.getY();
 	}
-
+	
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		scrollAmt = e.getWheelRotation();
 	}
-
+	
 	/**
 	 * Gets the current state of the mouse buttons.
 	 *
@@ -99,7 +99,7 @@ public class BetterFrame extends Frame implements MouseListener, MouseMotionList
 	public boolean clicking() {
 		return clicking;
 	}
-
+	
 	/**
 	 * Gets the current mouse button down, if any.
 	 *
@@ -108,19 +108,19 @@ public class BetterFrame extends Frame implements MouseListener, MouseMotionList
 	public int getMouseButton() {
 		return mouseButton;
 	}
-
+	
 	public void setKeyHandler(KeyInterface kh) {
 		keyHandler = kh;
 	}
-
+	
 	public boolean hasClicked() {
 		return hasClicked;
 	}
-
+	
 	public void setHasClicked(boolean hasClicked) {
 		this.hasClicked = hasClicked;
 	}
-
+	
 	@Override
 	public String getName() {
 		return name;

@@ -65,13 +65,13 @@ public enum Resizer {
 			return img;
 		}
 	};
-
+	
 	private static BufferedImage progressiveResize(BufferedImage source,
 	                                               int width, int height, Object hint) {
 		int w = Math.max(source.getWidth() / 2, width);
 		int h = Math.max(source.getHeight() / 2, height);
 		BufferedImage img = commonResize(source, w, h, hint);
-		while (w != width || h != height) {
+		while(w != width || h != height) {
 			BufferedImage prev = img;
 			w = Math.max(w / 2, width);
 			h = Math.max(h / 2, height);
@@ -80,7 +80,7 @@ public enum Resizer {
 		}
 		return img;
 	}
-
+	
 	private static BufferedImage commonResize(BufferedImage source,
 	                                          int width, int height, Object hint) {
 		BufferedImage img = new BufferedImage(width, height,
@@ -94,7 +94,7 @@ public enum Resizer {
 		}
 		return img;
 	}
-
+	
 	public abstract BufferedImage resize(BufferedImage source,
 	                                     int width, int height);
 }

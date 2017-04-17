@@ -1,6 +1,9 @@
 package com.oncontentstop.test;
 
-import com.oncontentstop.mygl.*;
+import com.oncontentstop.mygl.Background;
+import com.oncontentstop.mygl.ButtonElement;
+import com.oncontentstop.mygl.Graphics;
+import com.oncontentstop.mygl.TextEntryElement;
 
 import java.awt.event.KeyEvent;
 
@@ -11,13 +14,14 @@ public class TestWindow extends Graphics {
 	private ButtonElement testButton;
 	private Background testBackground;
 	private TextEntryElement testTextBox;
-
+	
 	public TestWindow() {
 		super("Test Window");
 		frame.setKeyHandler(new TestKeyListener(this));
 		frame.setSize(1000, 800);
 		init();
 	}
+	
 	private void init() {
 		testButton = new ButtonElement(100, 100, 200, 50, this);
 		testButton.setClickListener(() -> testTextBox.setText("Hello World!"));
@@ -26,13 +30,20 @@ public class TestWindow extends Graphics {
 		testTextBox.setVisible(true);
 		testTextBox.setHasFocus(true);
 	}
+	
+	protected void mouseActions() {
+	
+	}
+	
 	protected void runActions() {
 		draw();
 	}
+	
 	protected void drawActions() {
 		testButton.draw();
 		testTextBox.draw();
 	}
+	
 	public void handleKey(KeyEvent e) {
 		testTextBox.handleKey(e);
 	}

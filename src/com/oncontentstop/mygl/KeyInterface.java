@@ -7,6 +7,6 @@ import java.awt.event.KeyEvent;
  */
 public interface KeyInterface {
 	void pressKey(KeyEvent e);
-
+	
 	void releaseKey(KeyEvent e);
 }

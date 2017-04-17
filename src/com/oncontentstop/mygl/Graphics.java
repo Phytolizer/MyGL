@@ -19,17 +19,17 @@ public class Graphics implements Runnable, WindowListener, WindowFocusListener {
 	private boolean running, done, visible;
 	private Image imgBuffer;
 	private short sleepInterval;
-
+	
 	public Graphics() {
 		frame = new BetterFrame("Frame", new Dimension(width, height));
 		initializeCommonVariables();
 	}
-
+	
 	public Graphics(String title) {
 		frame = new BetterFrame(title, new Dimension(width, height));
 		initializeCommonVariables();
 	}
-
+	
 	private void initializeCommonVariables() {
 		running = true;
 		done = false;
@@ -43,56 +43,91 @@ public class Graphics implements Runnable, WindowListener, WindowFocusListener {
 		sleepInterval = 10;
 		imgBuffer = frame.createImage(width, height);
 	}
-
+	
 	@Override
 	public void run() {
-		while (running) {
+		while(running) {
+			mouseActions();
 			runActions();
 			try {
 				Thread.sleep(sleepInterval);
-			} catch (InterruptedException e) {
+			} catch(InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-
-	protected void runActions() {
-
+	
+	protected void mouseActions() {
+	
 	}
-
+	
+	protected void runActions() {
+	
+	}
+	
 	public void updateSize() {
-		if (width != frame.getWidth())
+		if(width != frame.getWidth())
 			width = frame.getWidth();
-		if (height != frame.getHeight())
+		if(height != frame.getHeight())
 			height = frame.getHeight();
 	}
-
+	
 	public void startDraw() {
-		graphics2D = (Graphics2D) imgBuffer.getGraphics();
+		graphics2D = (Graphics2D)imgBuffer.getGraphics();
 		graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 		graphics2D.setFont(new Font("Arial", Font.PLAIN, 50));
 		f = graphics2D.getFont();
 	}
-
+	
 	public void endDraw() {
-		graphics2D = (Graphics2D) frame.getGraphics();
-		if (graphics2D != null) {
-			imgBuffer = Resizer.PROGRESSIVE_BILINEAR.resize((BufferedImage) imgBuffer, width, height);
+		graphics2D = (Graphics2D)frame.getGraphics();
+		if(graphics2D != null) {
+			imgBuffer = Resizer.PROGRESSIVE_BILINEAR.resize((BufferedImage)imgBuffer, width, height);
 			graphics2D.drawImage(imgBuffer, 0, 0, width, height, 0, 0, width, height, null);
 			graphics2D.dispose();
 		}
 	}
+	
 	protected void draw() {
 		startDraw();
 		drawActions();
 		endDraw();
 	}
+	
 	protected void drawActions() {
-
+	
 	}
-
-
+	
+	public BetterFrame getFrame() {
+		return frame;
+	}
+	
+	public void setVisible(boolean visible) {
+		frame.setVisible(visible);
+		if(visible)
+			imgBuffer = frame.createImage(width, height);
+		this.visible = visible;
+	}
+	
+	public Graphics2D getGraphics2D() {
+		return graphics2D;
+	}
+	
+	public Font getFont() {
+		return f;
+	}
+	
+	public void setFont(Font font) {
+		graphics2D.setFont(font);
+	}
+	
+	//region unused overrides
+	@Override
+	public void windowOpened(WindowEvent e) {
+	
+	}
+	
 	@Override
 	public void windowClosing(WindowEvent e) {
 		frame.setVisible(false);
@@ -100,84 +135,55 @@ public class Graphics implements Runnable, WindowListener, WindowFocusListener {
 		frame.dispose();
 		done = true;
 	}
-
+	
 	@Override
 	public void windowClosed(WindowEvent e) {
-		if (done)
+		if(done)
 			System.exit(0);
 		try {
 			Thread.sleep(100);
-		} catch (InterruptedException e1) {
+		} catch(InterruptedException e1) {
 			//e1.printStackTrace();
 		}
 	}
-
-	public BetterFrame getFrame() {
-		return frame;
-	}
-
-	public void setVisible(boolean visible) {
-		frame.setVisible(visible);
-		if (visible)
-			imgBuffer = frame.createImage(width, height);
-		this.visible = visible;
-	}
-
-	public Graphics2D getGraphics2D() {
-		return graphics2D;
-	}
-
-	public Font getFont() {
-		return f;
-	}
-
-	public void setFont(Font font) {
-		graphics2D.setFont(font);
-	}
-
-	//region unused overrides
-	@Override
-	public void windowOpened(WindowEvent e) {
-
-	}
-
+	
 	@Override
 	public void windowIconified(WindowEvent e) {
-
+	
 	}
-
+	
 	@Override
 	public void windowDeiconified(WindowEvent e) {
-
+	
 	}
-
+	
 	@Override
 	public void windowActivated(WindowEvent e) {
-
+	
 	}
-
+	
 	@Override
 	public void windowDeactivated(WindowEvent e) {
-
+	
 	}
-
-
+	
+	
 	@Override
 	public void windowGainedFocus(WindowEvent e) {
-
+	
 	}
-
+	
 	@Override
 	public void windowLostFocus(WindowEvent e) {
-
+	
 	}
 	//endregion
-
+	
 	public void setFrameSleepInterval(short sleepInterval) {
 		this.sleepInterval = sleepInterval;
 	}
-
+	
 	public void handleKey(KeyEvent e) {
-
+	
 	}
 }

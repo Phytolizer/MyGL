@@ -8,7 +8,7 @@ import static java.time.Duration.ZERO;
  * @author onContentStop
  */
 
-@SuppressWarnings("InfiniteLoopStatement")
+@SuppressWarnings ("InfiniteLoopStatement")
 public class Timer implements Runnable {
 	/**
 	 * The time to reset to when the Timer is reset.
@@ -30,7 +30,7 @@ public class Timer implements Runnable {
 	 * The amount of time between updates to the current time, in milliseconds
 	 */
 	private int delay;
-
+	
 	/**
 	 * Timer constructor. Counting up by default.
 	 */
@@ -41,7 +41,7 @@ public class Timer implements Runnable {
 		countingUp = true;
 		delay = 10;
 	}
-
+	
 	/**
 	 * Timer constructor, with an option for changing the frequency of updates
 	 *
@@ -54,7 +54,7 @@ public class Timer implements Runnable {
 		countingUp = true;
 		this.delay = delay;
 	}
-
+	
 	/**
 	 * Timer constructor, with options for counting up or down and an initial time.
 	 *
@@ -63,7 +63,7 @@ public class Timer implements Runnable {
 	 */
 	public Timer(boolean countUp, int length) {
 		running = false;
-		if (! countUp) {
+		if(! countUp) {
 			startTime = Duration.ofMillis(length);
 			currentTime = Duration.ofMillis(length);
 		} else {
@@ -72,57 +72,57 @@ public class Timer implements Runnable {
 		}
 		countingUp = countUp;
 		delay = 10;
-
+		
 	}
-
+	
 	@Override
 	public void run() {
-		while (true) {
-			if (running)
-				if (countingUp) {
+		while(true) {
+			if(running)
+				if(countingUp) {
 					currentTime = currentTime.plusMillis(delay);
 				} else {
 					currentTime = currentTime.minusMillis(delay);
-					if (currentTime.toMillis() <= 0) {
+					if(currentTime.toMillis() <= 0) {
 						running = false;
 					}
 				}
-
+			
 			try {
 				Thread.sleep(delay);
-			} catch (InterruptedException e) {
+			} catch(InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-
+	
 	/**
 	 * Checks the current amount of time on the Timer.
 	 *
 	 * @return the time in hours, truncated
 	 */
 	public int getHours() {
-		return (int) (currentTime.getSeconds() / 3600.0);
+		return (int)(currentTime.getSeconds() / 3600.0);
 	}
-
+	
 	/**
 	 * Checks the current amount of time on the Timer.
 	 *
 	 * @return the time in seconds, truncated
 	 */
 	public int getSeconds() {
-		return (int) currentTime.getSeconds();
+		return (int)currentTime.getSeconds();
 	}
-
+	
 	/**
 	 * Checks the current amount of time on the Timer.
 	 *
 	 * @return the time in milliseconds
 	 */
 	public int getMS() {
-		return (int) currentTime.toMillis();
+		return (int)currentTime.toMillis();
 	}
-
+	
 	/**
 	 * Adds time to the Timer.
 	 *
@@ -131,7 +131,7 @@ public class Timer implements Runnable {
 	public void addSeconds(int seconds) {
 		currentTime = currentTime.plusSeconds(seconds);
 	}
-
+	
 	/**
 	 * Adds time to the Timer.
 	 *
@@ -140,7 +140,7 @@ public class Timer implements Runnable {
 	public void addMS(int millis) {
 		currentTime = currentTime.plusMillis(millis);
 	}
-
+	
 	/**
 	 * Represents the current time on the Timer as a String, in h:mm:ss.(milliseconds) with the option to
 	 *
@@ -148,7 +148,7 @@ public class Timer implements Runnable {
 	 * @return the time as a String
 	 */
 	public String toString(boolean zeroes) {
-		int ms = (int) currentTime.toMillis();
+		int ms = (int)currentTime.toMillis();
 		int seconds = ms / 1000;
 		int minutes = seconds / 60;
 		int hours = minutes / 60;
@@ -156,17 +156,17 @@ public class Timer implements Runnable {
 		minutes %= 60;
 		String out = "";
 		int numSeparators;
-		if (! zeroes) {
-			if (hours > 0) {
+		if(! zeroes) {
+			if(hours > 0) {
 				numSeparators = 4;
-			} else if (minutes > 0) {
+			} else if(minutes > 0) {
 				numSeparators = 3;
-			} else if (seconds > 0) {
+			} else if(seconds > 0) {
 				numSeparators = 2;
 			} else {
 				numSeparators = 1;
 			}
-			switch (numSeparators) {
+			switch(numSeparators) {
 				case 4:
 					out = "" + hours + ":" + (minutes < 10 ? '0' : "") + minutes + ':' + (seconds < 10 ? '0' : "") + seconds + '.' + (ms / 10 % 100 < 10 ? '0' : "") + ms / 10 % 100;
 					break;
@@ -183,14 +183,14 @@ public class Timer implements Runnable {
 		} else
 			return ("" + hours + ':' + (minutes < 10 ? '0' : "") + minutes + ':' + (seconds < 10 ? '0' : "") + seconds + '.' + (ms / 10 % 100 < 10 ? '0' : "") + (ms / 10 % 100));
 	}
-
+	
 	/**
 	 * Deprecated. Use <code>toString(boolean)</code> instead, an argument of <code>true</code> has the same functionality as this method.
 	 *
 	 * @return the time as a String
 	 */
 	public String toString() {
-		int ms = (int) currentTime.toMillis();
+		int ms = (int)currentTime.toMillis();
 		int seconds = ms / 1000;
 		int minutes = seconds / 60;
 		int hours = minutes / 60;
@@ -200,28 +200,28 @@ public class Timer implements Runnable {
 		ms %= 100;
 		return ("" + hours + ':' + (minutes < 10 ? '0' : "") + minutes + ':' + (seconds < 10 ? '0' : "") + seconds + '.' + (ms < 10 ? '0' : "") + (ms));
 	}
-
+	
 	/**
 	 * Halts the Timer, but does not reset it.
 	 */
 	public void pause() {
 		running = false;
 	}
-
+	
 	/**
 	 * Sets <code>running</code> to true without resetting the Timer.
 	 */
 	public void resume() {
 		running = true;
 	}
-
+	
 	/**
 	 * Sets <code>running</code> to true without resetting the Timer.
 	 */
 	public void start() {
 		running = true;
 	}
-
+	
 	/**
 	 * Returns the Timer to its initial state, and stops it from running.
 	 */
@@ -229,7 +229,7 @@ public class Timer implements Runnable {
 		currentTime = startTime;
 		running = false;
 	}
-
+	
 	/**
 	 * Returns the Timer to its initial state, and runs it immediately.
 	 */
@@ -237,7 +237,7 @@ public class Timer implements Runnable {
 		currentTime = startTime;
 		running = true;
 	}
-
+	
 	/**
 	 * Returns the Timer to its initial state, and runs it immediately.
 	 */
@@ -245,20 +245,20 @@ public class Timer implements Runnable {
 		currentTime = startTime;
 		running = true;
 	}
-
+	
 	/**
 	 * May be used to give a different initial time to a countdown timer, and resets it in the process.
 	 *
 	 * @param length the length of time to begin the countdown at
 	 */
 	public void restart(int length) {
-		if (! countingUp)
+		if(! countingUp)
 			startTime = Duration.ofMillis(length);
 		else
 			startTime = ZERO;
 		running = true;
 	}
-
+	
 	/**
 	 * Checks if the Timer is currently running
 	 *
@@ -267,7 +267,7 @@ public class Timer implements Runnable {
 	public boolean isRunning() {
 		return running;
 	}
-
+	
 	/**
 	 * Changes the frequency at which the Timer updates.
 	 *
@@ -276,7 +276,7 @@ public class Timer implements Runnable {
 	public void setDelay(int delay) {
 		this.delay = delay;
 	}
-
+	
 	/**
 	 * Checks if the Timer is counting up or down.
 	 *

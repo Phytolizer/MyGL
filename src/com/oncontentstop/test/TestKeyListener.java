@@ -10,16 +10,18 @@ import java.awt.event.KeyEvent;
  */
 public class TestKeyListener implements KeyInterface {
 	private Graphics graphics;
+	
 	public TestKeyListener(Graphics graphics) {
 		this.graphics = graphics;
 	}
+	
 	@Override
 	public void pressKey(KeyEvent e) {
 		graphics.handleKey(e);
 	}
-
+	
 	@Override
 	public void releaseKey(KeyEvent e) {
-
+	
 	}
 }
